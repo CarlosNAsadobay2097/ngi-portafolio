@@ -263,18 +263,31 @@ html.curtain-in .curtain {
 }
 
 /* Estados del cursor */
+.custom-cursor {
+  --cursor-color: var(--red);
+}
+.custom-cursor[data-tone="ink"] {
+  --cursor-color: var(--ink);
+}
+.cursor-dot {
+  background: var(--cursor-color);
+  transition: background-color 0.2s;
+}
+.cursor-ring {
+  border-color: color-mix(in srgb, var(--cursor-color) 70%, transparent);
+}
 .cursor-ring[data-kind="hover"] {
   width: 64px;
   height: 64px;
   margin: -32px 0 0 -32px;
-  background: rgb(223 6 30 / 0.12);
+  background: color-mix(in srgb, var(--cursor-color) 12%, transparent);
 }
 .cursor-ring[data-kind="peel"] {
   width: 72px;
   height: 72px;
   margin: -36px 0 0 -36px;
-  background: var(--red);
-  border-color: var(--red);
+  background: var(--cursor-color);
+  border-color: var(--cursor-color);
 }
 .cursor-ring[data-kind="lens"],
 .cursor-ring[data-kind="text"] {

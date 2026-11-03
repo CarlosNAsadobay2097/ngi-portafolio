@@ -13,7 +13,7 @@ export default function Hero({ t, cvHref }: { t: Content["hero"]; cvHref: string
     const reduced = prefersReducedMotion();
     const fades = el.querySelectorAll<HTMLElement>(".hero-fade");
     const parallax = el.querySelector<HTMLElement>(".hero-parallax");
-    let lines: Element[] = [];
+    let titleTween: gsap.core.Tween | undefined;
     let played = false;
 
     const ctx = gsap.context(() => {
@@ -24,8 +24,16 @@ export default function Hero({ t, cvHref }: { t: Content["hero"]; cvHref: string
         linesClass: "split-line",
         autoSplit: true,
         onSplit(self) {
-          lines = self.lines;
-          if (!played && !reduced) gsap.set(lines, { yPercent: 105 });
+          // SplitText administra el tween si las fuentes cambian las líneas.
+          // Una división tardía nunca debe volver a ocultar un título ya revelado.
+          titleTween = gsap.fromTo(self.lines, { yPercent: played || reduced ? 0 : 105 }, {
+            yPercent: 0,
+            duration: 1.1,
+            stagger: 0.12,
+            ease: "expo.out",
+            paused: !played && !reduced,
+          });
+          return titleTween;
         },
       });
       if (!reduced) {
@@ -38,10 +46,10 @@ export default function Hero({ t, cvHref }: { t: Content["hero"]; cvHref: string
       if (reduced || played) return;
       played = true;
       ctx.add(() => {
+        titleTween?.play();
         gsap
           .timeline()
           .to(circle.current, { scale: 1, opacity: 1, duration: 1.4, ease: "expo.out" })
-          .to(lines, { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "expo.out" }, 0.1)
           .to(fades, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: "power3.out" }, 0.45);
       });
     };
@@ -69,8 +77,10 @@ export default function Hero({ t, cvHref }: { t: Content["hero"]; cvHref: string
           .timeline({
             scrollTrigger: { trigger: el, start: "top top", end: "+=110%", scrub: 0.6, pin: true, anticipatePin: 1, invalidateOnRefresh: true },
           })
-          .to(el.querySelector(".hero-content"), { yPercent: -18, opacity: 0, ease: "none", duration: 0.6 }, 0)
-          .to(el.querySelectorAll(".hero-ring"), { opacity: 0, ease: "none", duration: 0.3 }, 0)
+          // Valores iniciales explícitos: un refresh con la portada fuera de
+          // pantalla no debe capturar opacity: 0 como estado de entrada.
+          .fromTo(el.querySelector(".hero-content"), { yPercent: 0, opacity: 1 }, { yPercent: -18, opacity: 0, ease: "none", duration: 0.6 }, 0)
+          .fromTo(el.querySelectorAll(".hero-ring"), { opacity: 1 }, { opacity: 0, ease: "none", duration: 0.3 }, 0)
           .fromTo(circle.current, { scale: 1 }, { scale: coverScale, ease: "power2.in", duration: 1, immediateRender: false }, 0);
       });
 
@@ -98,6 +108,7 @@ export default function Hero({ t, cvHref }: { t: Content["hero"]; cvHref: string
       <div className="hero-parallax absolute right-[-45vw] bottom-[-22vh] sm:right-[-30vw] sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 lg:right-[-16vw]">
         <div
           ref={circle}
+          data-cursor-tone="ink"
           className="relative size-[110vw] sm:size-[78vmin] lg:size-[80vmin] rounded-full will-change-transform"
           style={{ background: "radial-gradient(circle at 35% 30%, #ef1a30 0%, #df061e 45%, #9a0012 100%)" }}
         >
@@ -148,4 +159,3 @@ export default function Hero({ t, cvHref }: { t: Content["hero"]; cvHref: string
     </section>
   );
 }
-

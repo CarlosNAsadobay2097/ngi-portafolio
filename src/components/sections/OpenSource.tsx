@@ -33,8 +33,11 @@ export default function OpenSource({ t, labels }: { t: Content["os"]; labels: Co
                 </svg>
                 {t.ctaRepo}
               </a>
-              <a href={links.booksLive} target="_blank" rel="noopener noreferrer" className="btn btn-ghost text-ink hover:!bg-ink hover:!text-bone hover:!border-ink" data-cursor="hover">
+              <a href={links.booksDemo} target="_blank" rel="noopener noreferrer" className="btn btn-ghost text-ink hover:!bg-ink hover:!text-bone hover:!border-ink" data-cursor="hover">
                 {t.ctaLive} ↗
+              </a>
+              <a href={links.booksLive} target="_blank" rel="noopener noreferrer" className="btn btn-ghost text-ink hover:!bg-ink hover:!text-bone hover:!border-ink" data-cursor="hover">
+                {t.ctaBook} ↗
               </a>
             </div>
           </div>

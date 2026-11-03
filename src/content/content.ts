@@ -16,7 +16,8 @@ export const links = {
   macroTarget: "/files/macroinvertebrados-ar-target.pdf",
   booksRepo: "https://github.com/CarlosNAsadobay2097/pdf-book-viewer",
   booksLive: "https://fabrica-de-historias-unae.netlify.app/",
-  cv: { es: "/files/CV_Carlos_Asadobay_ES.pdf", en: "/files/CV_Carlos_Asadobay_ES.pdf" },
+  booksDemo: "https://pdf-book-viewer.vercel.app/",
+  cv: { es: "/files/Carlos_Asadobay_CV_ES.pdf", en: "/files/Carlos_Asadobay_CV_EN.pdf" },
 };
 
 /** Muestra u oculta la sección del proyecto confidencial con un solo cambio. */
@@ -225,7 +226,7 @@ const es = {
   os: {
     label: "05 — Open Source",
     badge: "Código abierto · Uso no comercial",
-    name: "PDF Book Viewer",
+    name: "PDF Book Viewer | NGI flip-book",
     title: "De PDF a libro digital interactivo, gratis.",
     body: "Framework open source para convertir cualquier PDF en un libro digital que se lee en el navegador, con elementos interactivos en cada página: animaciones WebP o GIF, botones de audio e incluso video.",
     challenge:
@@ -233,6 +234,7 @@ const es = {
     result: "Publiqué con él «Fábrica de Historias», un libro de 68 páginas que yo mismo maqueté e ilustré, con animaciones, videos y sonidos en cada historia.",
     ctaRepo: "Ver en GitHub",
     ctaLive: "Abrir el libro",
+    ctaBook: "Abrir libro hecho con NGI flip-book",
     liveTitle: "Pruébalo aquí mismo",
     liveLoad: "Cargar libro interactivo",
     stack: ["JavaScript", "PDF rendering", "HTML / CSS", "UI/UX", "Netlify"],
@@ -477,7 +479,7 @@ const en: Content = {
   os: {
     label: "05 — Open Source",
     badge: "Open source · Non-commercial use",
-    name: "PDF Book Viewer",
+    name: "PDF Book Viewer | NGI flip-book",
     title: "From PDF to interactive digital book, for free.",
     body: "An open-source framework that turns any PDF into a digital book you read in the browser, with interactive elements on every page: WebP or GIF animations, audio buttons and even video.",
     challenge:
@@ -485,6 +487,7 @@ const en: Content = {
     result: "I used it to publish “Fábrica de Historias”, a 68-page book I laid out and illustrated myself, with animations, videos and sounds in every story.",
     ctaRepo: "View on GitHub",
     ctaLive: "Open the book",
+    ctaBook: "Open a book made with NGI flip-book",
     liveTitle: "Try it right here",
     liveLoad: "Load interactive book",
     stack: ["JavaScript", "PDF rendering", "HTML / CSS", "UI/UX", "Netlify"],
